@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Web Audio Tone Generator&lt;/title&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Web Audio Tone Generator&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;label for="frequency"&gt;Frequency (Hz):&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;input type="number" id="frequency" value="440"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button onclick="playTone()"&gt;Play Tone&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button onclick="stopTone()"&gt;Stop Tone&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let audioContext = null;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let oscillator = null;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function playTone() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!audioContext) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>audioContext = new (window.AudioContext || window.webkitAudioContext)();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>oscillator = audioContext.createOscillator();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const frequency = document.getElementById('frequency').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>oscillator.type = 'sine'; // Options: sine, square, sawtooth, triangle</p>
+<p class="p1"><span class="Apple-converted-space">            </span>oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>oscillator.connect(audioContext.destination);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>oscillator.start();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function stopTone() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (oscillator) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>oscillator.stop();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>oscillator.disconnect();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>oscillator = null;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
